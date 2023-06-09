@@ -1,7 +1,4 @@
-def crearTabla(dataFrame,nombreTabla):
-    archivoHTML=dataFrame.to_html()
-    archivo=open(f".`/tablas/{nombreTabla}.html","w", encoding="utf-8")
-    archivo.write('''
+
                     <!DOCTYPE html>
                     <html lang="en">
                     <head>
@@ -11,9 +8,33 @@ def crearTabla(dataFrame,nombreTabla):
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
                     <title>Tablas</title>
                     </head>
-                    <body>''')
-    archivo.write(archivoHTML)
-    archivo.write('''
+                    <body><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ticket</th>
+      <th>Nombre comun</th>
+      <th>Fecha</th>
+      <th>evento</th>
+      <th>Ciudad</th>
+      <th>Vereda</th>
+      <th>Arboles</th>
+      <th>Hectareas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>404</th>
+      <td>665</td>
+      <td>Aguacatillo</td>
+      <td>02/04/2021 12:00:00 AM</td>
+      <td>Sembraton quitasol</td>
+      <td>Bello</td>
+      <td>Quitasol</td>
+      <td>50.0</td>
+      <td>0.1</td>
+    </tr>
+  </tbody>
+</table>
                   </body>
-                  </html>''')
-    archivo.close()
+                  </html>
