@@ -1,42 +1,64 @@
 import pandas as pd
 from helpers.crearTablasHTML import crearTabla
+from helpers.crearBarras import crearBarras
+from helpers.crearTortas import crearTorta
+from unidecode import unidecode
+
 
 todos = pd.read_csv('./data/Siembras.csv')
-tablaSantaFeA = pd.DataFrame()
-# tablaCaucasia = pd.DataFrame()
-# tablaBelmira = pd.DataFrame()
-# tablaBello = pd.DataFrame()
-# tablaCaramanta = pd.DataFrame()
+Yarumal = todos.dropna(how='all').query('Ciudad=="Yarumal"')
+Caucasia = todos.dropna(how='all').query('Ciudad=="Caucasia"')
+Belmira = todos.dropna(how='all').query('Ciudad=="Belmira"')
+Bello = todos.dropna(how='all').query('Ciudad=="Bello"')
+Caramanta = todos.dropna(how='all').query('Ciudad=="Caramanta"')
 
-#FILTRO1
+#FILTRO1 Encontrar todos los datos de santa fe de Antioquia donde se tengan siembras de + de 250 arboles
 print("FILTRO 1")
 SantaFeAntioquia = todos.dropna(how='all').query('Ciudad=="Santa Fe de Antioquia"')
 Filtro1 = SantaFeAntioquia.query('Arboles>250')
 print(Filtro1)
 print("<=================================================================================>")
-#FILTRO2
+
+
+
+#FILTRO2 Filtrar todos los datos de Caucasia e interpretar sus estadísticas
 print("FILTRO 2")
 Filtro2 = todos.dropna(how='all').query('Ciudad=="Caucasia"')
 print(Filtro2)
 print("<=================================================================================>")
-#Filtro3
+
+
+
+#Filtro3 Filtrar todos los datos de las veredas Rio arriba y la Salazar de Belmira
+
 print("FILTRO 3")
 Filtro3 = todos.dropna(how='all').query('Vereda=="Rio Arriba" or Vereda=="La Salazar"')
 print(Filtro3)
 print("<=================================================================================>")
-#Filtro4
+
+
+
+#Filtro4 Encontrar los datos de las veredas Quitasol de Bello mostrando además las medias de cada ítem del dataframe
+
 print("FILTRO 4")
-Filtro4             = todos.dropna(how='all').query('Vereda=="Quitasol" and Ciudad=="Bello"')
-#ArbolesHectareas    = Filtro4['Arboles', 'Hectareas'] 
+Filtro4 = todos.dropna(how='all').query('Vereda=="Quitasol" and Ciudad=="Bello"')
 print(Filtro4)
 print("<=================================================================================>")
-#Filtro5
+
+
+
+#Filtro5 Encontrar todos los datos de caramanta donde se tengan siembras de + de 100 arboles
+
 print("FILTRO 5")
 CiudadCaramanta = todos.dropna(how='all').query('Ciudad=="Caramanta"')
-Filtro5         = CiudadCaramanta.dropna(how='all').query('Arboles>100')
+Filtro5 = CiudadCaramanta.dropna(how='all').query('Arboles>100')
 print(Filtro5)
 print("<=================================================================================>")
-#Filtro6
+
+
+
+#Filtro6 Encontrar los datos de la vereda mallarino del municipio de Yarumal
+
 print("FILTRO 6")
 Filtro6 = todos.dropna(how='all').query('Ciudad=="Yarumal" and Vereda=="Mallarino"')
 print(Filtro6)
@@ -50,22 +72,18 @@ crearTabla(Filtro3,"Filtro3")
 crearTabla(Filtro4,"Filtro4")
 crearTabla(Filtro5,"Filtro5")
 crearTabla(Filtro6,"Filtro6")
+crearTabla(Yarumal,"Yarumal")
+crearTabla(SantaFeAntioquia,"SantaFeAntioquia")
+crearTabla(Caucasia,"Caucasia")
+crearTabla(Belmira,"Belmira")
+crearTabla(Bello,"Bello")
+crearTabla(Caramanta,"Caramanta")
 
-"""
-#EFECTUANDO FILTROS CON PYTHON
-
-#1. DEFINIR UNA CONDICION LOGICA
-empleadosJovenesAnalistas1=tabla3.query('cargo=="analista1"')
-empleadosSalarioBajo=tabla3.query('salario<5000000 and cargo=="analista2"')
-empleadosADespedir=tabla3.query('edad>=50')
-
-#2. creamos la tabla html con el dataframe del filtro
-crearTabla(empleadosJovenesAnalistas1,"tablaJovenes")
-crearTabla(empleadosSalarioBajo,"tablabajossalarios")
-crearTabla(empleadosADespedir,"tablaoportunidaddemejora")
 
 #3. Genera gráficas
-graficarPromedioSalarial(empleadosADespedir,'cargo','salario','graficajubilados')
-calcularPromedioSalariosPorEdad(empleadosJovenesAnalistas1,[20,30,40,50,60],'edad','salario','graficadetortaanalisis1')
-
-"""
+crearBarras(Yarumal,'Nombre comun','Arboles','Yarumal')
+crearBarras(Caucasia,'Nombre comun','Arboles','Caucasia')
+crearBarras(Bello,'Nombre comun','Arboles','Bello')
+crearTorta(SantaFeAntioquia,SantaFeAntioquia['Nombre comun'], SantaFeAntioquia['Arboles'], 'SantaFeAntioquia')
+crearTorta(Belmira,Belmira['Nombre comun'],Belmira['Arboles'],'Belmira')
+crearTorta(Caramanta,Caramanta['Nombre comun'],Caramanta['Arboles'],'Caramanta')
